@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8' />
+    <title>video controls demo</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='/mapbox-gl/mapbox-gl.js'></script>
+    <link href='/mapbox-gl/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id='map'></div>
+
+    <div id='button-div'>
+        <button id='play' onclick="play()">play</button>
+        <button id='pause' onclick="pause()">pause</button>
+        <button id='step' onclick="step()">step</button>
+    </div>
+
+    <script>
+
+        var source;
+
+        mapboxgl.accessToken = '<your access token here>';
+        var videoStyle = {
+            "version": 8,
+            "sources": {
+                "video": {
+                    "type": "videocontrols",
+                    "urls": ["/video.mp4"],
+                    "coordinates": [
+                        [0, 9],
+                        [16, 9],
+                        [16, 0],
+                        [0, 0]
+                    ]
+                }
+            },
+            "layers": [{
+                "id": "background",
+                "type": "background",
+                "paint": {
+                    "background-color": "rgb(4,7,14)"
+                }
+            }, {
+                "id": "video",
+                "type": "raster",
+                "source": "video"
+            }]
+        };
+
+        var map = new mapboxgl.Map({
+            container: 'map',
+            minZoom: 0,
+            zoom: 0,
+            center: [0, 0],
+            bearing: 0,
+            style: videoStyle
+        });
+
+        map.on('load', function() {
+            map.fitBounds([[0,0],[16,9]]);
+
+            source = map.getSource('video');
+        });
+
+        function play() {
+            source.play();
+        }
+
+        function pause() {
+            source.pause();
+        }
+
+        function step() {
+            source.setCurrentTime(source.getCurrentTime() + 2);
+        }
+
+    </script>
+
+</body>
+
+</html>
