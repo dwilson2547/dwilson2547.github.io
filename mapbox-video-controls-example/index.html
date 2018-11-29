@@ -25,9 +25,11 @@
     <div id='map'></div>
 
     <div id='button-div'>
-        <button id='play' onclick="play()">play</button>
-        <button id='pause' onclick="pause()">pause</button>
-        <button id='step' onclick="step()">step</button>
+        <button id='btnPlay' onclick="play()">play</button>
+        <button id='btnPause' onclick="pause()">pause</button>
+        <button id='btnStep' onclick="step()">step</button>
+        <button id="btnLibSourceCode" style="float: right;" onclick="goToLibrarySource()">Library Source Code</button>
+        <button id="btnPageSourceCode" style="float: right;" onclick="goToPageSource()">Page Source Code</button>
     </div>
 
     <script>
@@ -87,6 +89,14 @@
 
         function step() {
             source.setCurrentTime(source.getCurrentTime() + 2);
+        }
+
+        function goToLibrarySource() {
+            location.href = 'https://github.com/dwilson2547/mapbox-gl-js/tree/videoControls';
+        }
+
+        function goToPageSource() {
+            location.href = 'https://github.com/dwilson2547/dwilson2547.github.io/tree/master/mapbox-video-controls-example';
         }
 
     </script>
