@@ -36,13 +36,14 @@
     <script>
 
         var source;
+        var video;
 
         mapboxgl.accessToken = '<your access token here>';
         var videoStyle = {
             "version": 8,
             "sources": {
                 "video": {
-                    "type": "videocontrols",
+                    "type": "video",
                     "urls": ["/mapbox-video-controls-example/video.mkv"],
                     "coordinates": [
                         [0, 9],
@@ -78,18 +79,19 @@
             map.fitBounds([[0,0],[16,9]]);
 
             source = map.getSource('video');
+            video = source.getVideo();
         });
 
         function play() {
-            source.play();
+            video.play();
         }
 
         function pause() {
-            source.pause();
+            video.pause();
         }
 
         function step() {
-            source.setCurrentTime(source.getCurrentTime() + 2);
+            video.currentTime += 2;
         }
 
         function goToLibrarySource() {
